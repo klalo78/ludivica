@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Web App - Rompecabezas</title>
+    <title>Mi Web App</title>
     <style>
         /* Reset básico */
         * {
@@ -12,6 +12,7 @@
             box-sizing: border-box;
         }
 
+        /* Configuración del fondo de pantalla completa */
         body {
             background-image: url('back.jpg');
             background-size: cover;
@@ -22,94 +23,82 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: 'Arial Rounded MT Bold', 'Arial', sans-serif;
+            font-family: 'Arial Rounded MT Bold', 'Arial', sans-serif; /* Tipografía más amigable y lúdica */
         }
 
+        /* Contenedor de los botones */
         .menu-container {
             display: flex;
             flex-direction: column;
-            gap: 30px; 
-            align-items: center;
+            gap: 25px; /* Espacio intermedio entre botones */
+            width: 90%;
+            max-width: 320px; /* Controla el ancho máximo en pantallas grandes */
+            text-align: center;
         }
 
-        /* Contenedor del botón para manejar la sombra, ya que el clip-path corta las sombras normales */
-        .puzzle-wrapper {
-            filter: drop-shadow(0px 8px 10px rgba(0, 0, 0, 0.4));
-            transition: transform 0.2s ease;
-        }
-
-        /* Estilo base del botón tipo Rompecabezas */
-        .btn-puzzle {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 260px;
-            height: 110px;
+        /* Estilo base de los botones rectangulares redondeados */
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 18px 20px;
             font-size: 1.6rem;
             font-weight: bold;
+            text-transform: uppercase;
             color: #ffffff;
-            border: none;
+            border: 2px solid rgba(255, 255, 255, 0.4); /* Borde sutil que le da definición */
+            border-radius: 16px; /* Ajusta este valor si los querés más o menos redondeados */
             cursor: pointer;
-            text-shadow: 1px 2px 4px rgba(0,0,0,0.3);
+            letter-spacing: 1px;
             
-            /* Esta es la "magia": corta el botón con la forma del SVG que definimos abajo */
-            clip-path: url(#puzzle-shape); 
+            /* Sombra exterior para dar profundidad y sombra interior (inset) para el efecto 3D */
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3), 
+                        inset 0 -4px 0px rgba(0, 0, 0, 0.2),
+                        inset 0 4px 0px rgba(255, 255, 255, 0.3);
+            
+            transition: all 0.2s ease;
+            text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.3);
         }
 
-        /* Colores individuales y texturas simuladas */
+        /* Botón Jugar: Degradado Naranja/Rojo */
         .btn-jugar {
-            background: linear-gradient(135deg, #ff4e50, #f9d423); /* Degradado brillante */
+            background: linear-gradient(135deg, #ff512f, #dd2476);
         }
 
+        /* Botón Promociones: Degradado Azul/Celeste */
         .btn-promo {
-            background: linear-gradient(135deg, #00c6ff, #0072ff); /* Degradado azul */
+            background: linear-gradient(135deg, #06beb6, #48b1bf);
         }
 
-        /* Animaciones (Hover y Click) */
-        .puzzle-wrapper:hover {
-            transform: scale(1.08) rotate(2deg); /* Se agranda y gira un poco al pasar el mouse */
+        /* --- EFECTOS AL INTERACTUAR --- */
+
+        /* Al pasar el mouse (Hover) */
+        .btn:hover {
+            transform: translateY(-3px); /* Se eleva ligeramente */
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4), 
+                        inset 0 -4px 0px rgba(0, 0, 0, 0.2),
+                        inset 0 4px 0px rgba(255, 255, 255, 0.4);
         }
 
-        .puzzle-wrapper:active {
-            transform: scale(0.95);
+        /* Al hacer clic o tocar la pantalla (Active) */
+        .btn:active {
+            transform: translateY(2px); /* Se hunde como un botón real */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 
+                        inset 0 -2px 0px rgba(0, 0, 0, 0.2),
+                        inset 0 2px 0px rgba(255, 255, 255, 0.2);
         }
     </style>
 </head>
 <body>
 
     <div class="menu-container">
+        <button class="btn btn-jugar" onclick="location.href='#juego'">
+            ¡A Jugar!!
+        </button>
         
-        <div class="puzzle-wrapper">
-            <button class="btn-puzzle btn-jugar" onclick="location.href='#juego'">
-                ¡A Jugar!!
-            </button>
-        </div>
-        
-        <div class="puzzle-wrapper">
-            <button class="btn-puzzle btn-promo" onclick="location.href='#promos'">
-                Promociones
-            </button>
-        </div>
-
+        <button class="btn btn-promo" onclick="location.href='#promos'">
+            Promociones
+        </button>
     </div>
-
-    <svg width="0" height="0" style="position:absolute;">
-        <defs>
-            <clipPath id="puzzle-shape" clipPathUnits="objectBoundingBox">
-                <path d="M 0.15, 0.2 
-                         C 0.15, 0.05, 0.35, 0.05, 0.35, 0.2 
-                         L 0.65, 0.2 
-                         C 0.65, 0.05, 0.85, 0.05, 0.85, 0.2 
-                         L 0.85, 0.35 
-                         C 1.0, 0.35, 1.0, 0.55, 0.85, 0.55 
-                         L 0.85, 0.8 
-                         L 0.15, 0.8 
-                         L 0.15, 0.55 
-                         C 0.0, 0.55, 0.0, 0.35, 0.15, 0.35 
-                         Z" />
-            </clipPath>
-        </defs>
-    </svg>
 
 </body>
 </html>
