@@ -5,11 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi Web App</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             background-image: url('back.jpg');
@@ -24,37 +20,36 @@
             font-family: Arial, sans-serif;
         }
 
-        /* Contenedor principal: subido hacia arriba con margin-top negativo */
         .menu-container {
             display: flex;
             flex-direction: column;
             gap: 15px;
             text-align: center;
             align-items: center;
-            margin-top: -100px; 
+            margin-top: -150px; 
         }
 
-        /* Logo con animación y resplandor blanco */
+        /* Logo con resplandor intenso y doble capa de filtro */
         .logo-animado {
             width: 180px;
             height: auto;
             margin-bottom: 20px;
             display: block;
             
-            /* Resplandor blanco: 0 0 15px (tamaño) color blanco */
-            filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.9));
+            /* Resplandor doble para mayor intensidad */
+            filter: drop-shadow(0 0 30px rgba(255, 255, 255, 1)) 
+                    drop-shadow(0 0 10px rgba(255, 255, 255, 1));
             
             animation: flotar 3s ease-in-out infinite;
         }
 
         @keyframes flotar {
-            0% { transform: translateY(0px); }
+            0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-12px); }
-            100% { transform: translateY(0px); }
         }
 
         .btn {
-            display: inline-block;
+            display: block;
             padding: 12px 30px;
             font-size: 1.1rem;
             font-weight: bold;
@@ -80,62 +75,16 @@
         
         .btn-jugar:hover { background-color: #27ae60; }
         .btn-promo:hover { background-color: #2980b9; }
-
-        .pantalla {
-            display: none;
-            text-align: center;
-            color: white;
-            background-color: rgba(0, 0, 0, 0.7);
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.5);
-            margin-top: -100px;
-        }
-
-        .btn-volver {
-            margin-top: 20px;
-            background-color: #e74c3c;
-        }
     </style>
 </head>
 <body>
 
     <div id="menu-principal" class="menu-container">
         <img src="logo.png" alt="Logo de la App" class="logo-animado">
+        
         <button class="btn btn-jugar" id="btn-jugar">¡A Jugar!</button>
         <button class="btn btn-promo" id="btn-promo">Promociones</button>
     </div>
 
-    <div id="pantalla-juego" class="pantalla">
-        <h2>Sección de Juego</h2>
-        <button class="btn btn-volver" onclick="volverAlMenu()">Volver al Menú</button>
-    </div>
-
-    <div id="pantalla-promos" class="pantalla">
-        <h2>Nuestras Promociones</h2>
-        <button class="btn btn-volver" onclick="volverAlMenu()">Volver al Menú</button>
-    </div>
-
-    <script>
-        const menuPrincipal = document.getElementById("menu-principal");
-        const pantallaJuego = document.getElementById("pantalla-juego");
-        const pantallaPromos = document.getElementById("pantalla-promos");
-
-        document.getElementById("btn-jugar").addEventListener("click", () => {
-            menuPrincipal.style.display = "none";
-            pantallaJuego.style.display = "block";
-        });
-
-        document.getElementById("btn-promo").addEventListener("click", () => {
-            menuPrincipal.style.display = "none";
-            pantallaPromos.style.display = "block";
-        });
-
-        function volverAlMenu() {
-            pantallaJuego.style.display = "none";
-            pantallaPromos.style.display = "none";
-            menuPrincipal.style.display = "flex";
-        }
-    </script>
 </body>
 </html>
