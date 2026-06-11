@@ -3,18 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Web App Completa</title>
+    <title>Mi Web App</title>
     <style>
-        /* Reset básico para evitar márgenes raros */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        /* Fondo de pantalla completa */
         body {
-            /* RECUERDA: Debes tener tu archivo back.jpg en la misma carpeta o cambiar la ruta */
             background-image: url('back.jpg');
             background-size: cover;
             background-position: center;
@@ -22,104 +19,82 @@
             background-attachment: fixed;
             height: 100vh;
             display: flex;
-            justify-content: center; /* Centra horizontalmente */
-            align-items: center;    /* Centra verticalmente */
-            font-family: Arial, sans-serif; /* Tipografía limpia */
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
         }
 
-        /* Contenedor principal del menú (Logo + Botones) */
+        /* Contenedor principal: subido hacia arriba con margin-top negativo */
         .menu-container {
             display: flex;
             flex-direction: column;
-            gap: 15px; /* Espacio entre el logo y los botones */
+            gap: 15px;
             text-align: center;
-            align-items: center; /* Asegura que el logo esté bien centrado */
+            align-items: center;
+            margin-top: -100px; 
         }
 
-        /* --- ESTILOS DEL LOGO Y ANIMACIÓN --- */
+        /* Logo con animación y resplandor blanco */
         .logo-animado {
-            width: 180px;         /* Ajustá el ancho máximo que prefieras para tu logo */
-            height: auto;         /* Mantiene la proporción de la imagen */
-            margin-bottom: 10px;  /* Margen de separación con el primer botón */
+            width: 180px;
+            height: auto;
+            margin-bottom: 20px;
             display: block;
             
-            /* Aplicamos la animación: nombre, duración (3 segundos), suavizado e infinita */
+            /* Resplandor blanco: 0 0 15px (tamaño) color blanco */
+            filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.9));
+            
             animation: flotar 3s ease-in-out infinite;
         }
 
-        /* Definición del movimiento del Logo (Efecto flotar) */
         @keyframes flotar {
-            0% {
-                transform: translateY(0px);
-            }
-            50% {
-                transform: translateY(-12px); /* Sube 12 píxeles a la mitad del ciclo */
-            }
-            100% {
-                transform: translateY(0px); /* Vuelve a la posición original */
-            }
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+            100% { transform: translateY(0px); }
         }
 
-        /* --- Estilo de los BOTONES: Más CHICOS y REDONDEADOS --- */
         .btn {
             display: inline-block;
-            padding: 10px 25px; /* Menos relleno para que sea más pequeño */
-            font-size: 1.1rem;   /* Tamaño de letra moderado */
+            padding: 12px 30px;
+            font-size: 1.1rem;
             font-weight: bold;
             text-transform: uppercase;
-            color: #ffffff; /* Texto blanco */
-            border-radius: 8px; /* Un redondeado suave y limpio */
-            border: none; /* Sin borde */
+            color: #ffffff;
+            border-radius: 8px;
+            border: none;
             cursor: pointer;
-            width: 100%; /* Hace que los botones tengan el mismo ancho */
-            max-width: 220px; /* Limita el ancho máximo del botón */
-            
-            /* Sombra suave para dar volumen sobre el fondo */
+            width: 100%;
+            max-width: 240px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-            transition: all 0.2s ease; /* Animación suave al pasar el mouse */
+            transition: all 0.2s ease;
             text-decoration: none;
         }
 
-        /* --- Colores de los botones --- */
-        .btn-jugar {
-            background-color: #2ecc71; /* Verde claro */
-        }
+        .btn-jugar { background-color: #2ecc71; }
+        .btn-promo { background-color: #3498db; }
 
-        .btn-promo {
-            background-color: #3498db; /* Azul claro */
-        }
-
-        /* --- Efectos al pasar el mouse (Hover) --- */
         .btn:hover {
-            transform: translateY(-2px); /* Pequeña elevación */
-            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4); /* Sombra más fuerte */
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4);
         }
         
-        .btn-jugar:hover {
-            background-color: #27ae60; /* Verde más oscuro */
-        }
+        .btn-jugar:hover { background-color: #27ae60; }
+        .btn-promo:hover { background-color: #2980b9; }
 
-        .btn-promo:hover {
-            background-color: #2980b9; /* Azul más oscuro */
-        }
-
-        /* Estilo base para las pantallas ocultas */
         .pantalla {
             display: none;
             text-align: center;
             color: white;
-            background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro semitransparente */
+            background-color: rgba(0, 0, 0, 0.7);
             padding: 30px;
             border-radius: 12px;
             box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+            margin-top: -100px;
         }
 
         .btn-volver {
             margin-top: 20px;
-            background-color: #e74c3c; /* Botón rojo para volver */
-        }
-        .btn-volver:hover {
-            background-color: #c0392b;
+            background-color: #e74c3c;
         }
     </style>
 </head>
@@ -127,42 +102,35 @@
 
     <div id="menu-principal" class="menu-container">
         <img src="logo.png" alt="Logo de la App" class="logo-animado">
-        
         <button class="btn btn-jugar" id="btn-jugar">¡A Jugar!</button>
         <button class="btn btn-promo" id="btn-promo">Promociones</button>
     </div>
 
     <div id="pantalla-juego" class="pantalla">
         <h2>Sección de Juego</h2>
-        <p>¡Acá va a ir toda la lógica de tu juego!</p>
         <button class="btn btn-volver" onclick="volverAlMenu()">Volver al Menú</button>
     </div>
 
     <div id="pantalla-promos" class="pantalla">
         <h2>Nuestras Promociones</h2>
-        <p>Disfrutá de los mejores beneficios acá.</p>
         <button class="btn btn-volver" onclick="volverAlMenu()">Volver al Menú</button>
     </div>
 
     <script>
-        // Captura de los elementos interactivos
         const menuPrincipal = document.getElementById("menu-principal");
         const pantallaJuego = document.getElementById("pantalla-juego");
         const pantallaPromos = document.getElementById("pantalla-promos");
 
-        // Evento para el botón ¡A Jugar!
         document.getElementById("btn-jugar").addEventListener("click", () => {
             menuPrincipal.style.display = "none";
             pantallaJuego.style.display = "block";
         });
 
-        // Evento para el botón Promociones
         document.getElementById("btn-promo").addEventListener("click", () => {
             menuPrincipal.style.display = "none";
             pantallaPromos.style.display = "block";
         });
 
-        // Función global para regresar al menú principal
         function volverAlMenu() {
             pantallaJuego.style.display = "none";
             pantallaPromos.style.display = "none";
