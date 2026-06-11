@@ -15,31 +15,28 @@
             background-attachment: fixed;
             height: 100vh;
             display: flex;
+            flex-direction: column; /* Cambiado para permitir footer */
             justify-content: center;
             align-items: center;
             font-family: Arial, sans-serif;
         }
 
+        /* Contenedor principal ajustado */
         .menu-container {
             display: flex;
             flex-direction: column;
             gap: 15px;
             text-align: center;
             align-items: center;
-            margin-top: -150px; 
+            margin-top: -100px; /* Logo un poco más abajo que antes */
         }
 
-        /* Logo con resplandor intenso y doble capa de filtro */
         .logo-animado {
             width: 180px;
             height: auto;
-            margin-bottom: 20px;
-            display: block;
-            
-            /* Resplandor doble para mayor intensidad */
+            margin-bottom: 25px;
             filter: drop-shadow(0 0 30px rgba(255, 255, 255, 1)) 
                     drop-shadow(0 0 10px rgba(255, 255, 255, 1));
-            
             animation: flotar 3s ease-in-out infinite;
         }
 
@@ -68,22 +65,44 @@
         .btn-jugar { background-color: #2ecc71; }
         .btn-promo { background-color: #3498db; }
 
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4);
+        /* Estilos del pie de página */
+        .footer {
+            position: absolute;
+            bottom: 30px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
         }
-        
-        .btn-jugar:hover { background-color: #27ae60; }
-        .btn-promo:hover { background-color: #2980b9; }
+
+        .whatsapp-icon {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 5px;
+            transition: transform 0.2s;
+        }
+
+        .whatsapp-icon:hover { transform: scale(1.1); }
+
+        .footer p {
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
     </style>
 </head>
 <body>
 
     <div id="menu-principal" class="menu-container">
-        <img src="logo.png" alt="Logo de la App" class="logo-animado">
+        <img src="logo.png" alt="Logo" class="logo-animado">
         
-        <button class="btn btn-jugar" id="btn-jugar">¡A Jugar!</button>
-        <button class="btn btn-promo" id="btn-promo">Promociones</button>
+        <button class="btn btn-jugar" id="btn-jugar">¡A JUGAR!</button>
+        <button class="btn btn-promo" id="btn-promo">PROMOCIONES</button>
+    </div>
+
+    <div class="footer">
+        <a href="https://wa.me/541149496902" target="_blank">
+            <img src="whatsapp.png" alt="WhatsApp" class="whatsapp-icon">
+        </a>
+        <p>multimedia design</p>
     </div>
 
 </body>
