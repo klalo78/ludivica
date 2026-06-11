@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Web App Simple</title>
+    <title>Mi Web App Completa</title>
     <style>
         /* Reset básico para evitar márgenes raros */
         * {
@@ -14,7 +14,7 @@
 
         /* Fondo de pantalla completa */
         body {
-            /* RECUERDA: Debes tener tu archivo back.jpg en la misma carpeta */
+            /* RECUERDA: Debes tener tu archivo back.jpg en la misma carpeta o cambiar la ruta */
             background-image: url('back.jpg');
             background-size: cover;
             background-position: center;
@@ -27,46 +27,66 @@
             font-family: Arial, sans-serif; /* Tipografía limpia */
         }
 
-        /* Contenedor principal de los botones */
+        /* Contenedor principal del menú (Logo + Botones) */
         .menu-container {
             display: flex;
             flex-direction: column;
-            gap: 15px; /* Menos espacio entre los botones */
+            gap: 15px; /* Espacio entre el logo y los botones */
             text-align: center;
+            align-items: center; /* Asegura que el logo esté bien centrado */
+        }
+
+        /* --- ESTILOS DEL LOGO Y ANIMACIÓN --- */
+        .logo-animado {
+            width: 180px;         /* Ajustá el ancho máximo que prefieras para tu logo */
+            height: auto;         /* Mantiene la proporción de la imagen */
+            margin-bottom: 10px;  /* Margen de separación con el primer botón */
+            display: block;
+            
+            /* Aplicamos la animación: nombre, duración (3 segundos), suavizado e infinita */
+            animation: flotar 3s ease-in-out infinite;
+        }
+
+        /* Definición del movimiento del Logo (Efecto flotar) */
+        @keyframes flotar {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-12px); /* Sube 12 píxeles a la mitad del ciclo */
+            }
+            100% {
+                transform: translateY(0px); /* Vuelve a la posición original */
+            }
         }
 
         /* --- Estilo de los BOTONES: Más CHICOS y REDONDEADOS --- */
         .btn {
             display: inline-block;
-            /* Estos son los valores que controlan el tamaño "más chico" */
-            padding: 10px 25px; /* Menos relleno (padding) para que sea más pequeño */
-            font-size: 1.1rem;   /* Tamaño de letra más moderado */
-            
+            padding: 10px 25px; /* Menos relleno para que sea más pequeño */
+            font-size: 1.1rem;   /* Tamaño de letra moderado */
             font-weight: bold;
             text-transform: uppercase;
             color: #ffffff; /* Texto blanco */
-            
-            /* --- El redondeado que pediste --- */
             border-radius: 8px; /* Un redondeado suave y limpio */
-            
             border: none; /* Sin borde */
             cursor: pointer;
+            width: 100%; /* Hace que los botones tengan el mismo ancho */
+            max-width: 220px; /* Limita el ancho máximo del botón */
             
-            /* Sombra suave para que no se vea "plano" sobre el fondo */
+            /* Sombra suave para dar volumen sobre el fondo */
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-            
             transition: all 0.2s ease; /* Animación suave al pasar el mouse */
             text-decoration: none;
         }
 
         /* --- Colores de los botones --- */
-        
         .btn-jugar {
-            background-color: #2ecc71; /* Un color verde claro y amigable */
+            background-color: #2ecc71; /* Verde claro */
         }
 
         .btn-promo {
-            background-color: #3498db; /* Un color azul claro */
+            background-color: #3498db; /* Azul claro */
         }
 
         /* --- Efectos al pasar el mouse (Hover) --- */
@@ -76,22 +96,78 @@
         }
         
         .btn-jugar:hover {
-            background-color: #27ae60; /* Verde más oscuro al hover */
+            background-color: #27ae60; /* Verde más oscuro */
         }
 
         .btn-promo:hover {
-            background-color: #2980b9; /* Azul más oscuro al hover */
+            background-color: #2980b9; /* Azul más oscuro */
         }
 
+        /* Estilo base para las pantallas ocultas */
+        .pantalla {
+            display: none;
+            text-align: center;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro semitransparente */
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+        }
+
+        .btn-volver {
+            margin-top: 20px;
+            background-color: #e74c3c; /* Botón rojo para volver */
+        }
+        .btn-volver:hover {
+            background-color: #c0392b;
+        }
     </style>
 </head>
 <body>
 
-    <div class="menu-container">
-        <button class="btn btn-jugar" onclick="location.href='#juego'">¡A Jugar!</button>
+    <div id="menu-principal" class="menu-container">
+        <img src="logo.png" alt="Logo de la App" class="logo-animado">
         
-        <button class="btn btn-promo" onclick="location.href='#promos'">Promociones</button>
+        <button class="btn btn-jugar" id="btn-jugar">¡A Jugar!</button>
+        <button class="btn btn-promo" id="btn-promo">Promociones</button>
     </div>
 
+    <div id="pantalla-juego" class="pantalla">
+        <h2>Sección de Juego</h2>
+        <p>¡Acá va a ir toda la lógica de tu juego!</p>
+        <button class="btn btn-volver" onclick="volverAlMenu()">Volver al Menú</button>
+    </div>
+
+    <div id="pantalla-promos" class="pantalla">
+        <h2>Nuestras Promociones</h2>
+        <p>Disfrutá de los mejores beneficios acá.</p>
+        <button class="btn btn-volver" onclick="volverAlMenu()">Volver al Menú</button>
+    </div>
+
+    <script>
+        // Captura de los elementos interactivos
+        const menuPrincipal = document.getElementById("menu-principal");
+        const pantallaJuego = document.getElementById("pantalla-juego");
+        const pantallaPromos = document.getElementById("pantalla-promos");
+
+        // Evento para el botón ¡A Jugar!
+        document.getElementById("btn-jugar").addEventListener("click", () => {
+            menuPrincipal.style.display = "none";
+            pantallaJuego.style.display = "block";
+        });
+
+        // Evento para el botón Promociones
+        document.getElementById("btn-promo").addEventListener("click", () => {
+            menuPrincipal.style.display = "none";
+            pantallaPromos.style.display = "block";
+        });
+
+        // Función global para regresar al menú principal
+        function volverAlMenu() {
+            pantallaJuego.style.display = "none";
+            pantallaPromos.style.display = "none";
+            menuPrincipal.style.display = "flex";
+        }
+    </script>
 </body>
 </html>
