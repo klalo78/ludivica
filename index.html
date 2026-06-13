@@ -18,34 +18,24 @@
             height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
             font-family: Arial, sans-serif;
             transition: background-image 0.5s ease;
         }
 
-        /* --- CONTENEDORES --- */
-        #menu-principal {
-            display: flex; /* Visible por defecto */
-            flex-direction: column;
-            gap: 15px;
-            align-items: center;
-            margin-top: -50px;
-        }
-
-        #pantalla-juego {
-            display: none; /* OCULTO POR DEFECTO */
-            flex-direction: column;
-            align-items: center;
-            gap: 30px;
-        }
-
-        /* --- LOGOS Y BOTONES --- */
-        .logo-animado {
+        /* --- LOGO PRINCIPAL --- */
+        .logo-principal {
             width: 180px;
-            margin-bottom: 25px;
+            margin-top: 50px;
+            margin-bottom: 20px;
             filter: drop-shadow(0 0 30px rgba(255, 255, 255, 1)) drop-shadow(0 0 10px rgba(255, 255, 255, 1));
             animation: flotar 3s ease-in-out infinite;
+        }
+
+        .logo-chico {
+            width: 100px;
+            margin-top: 20px;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.8));
         }
 
         @keyframes flotar {
@@ -53,48 +43,46 @@
             50% { transform: translateY(-12px); }
         }
 
+        /* --- MENÚ Y JUEGOS --- */
+        #menu-principal { display: flex; flex-direction: column; gap: 15px; align-items: center; }
+        #pantalla-juego { display: none; flex-direction: column; align-items: center; gap: 20px; text-align: center; }
+
         .btn {
-            display: block;
-            padding: 12px 30px;
-            font-weight: bold;
-            text-transform: uppercase;
-            color: #ffffff;
-            border-radius: 8px;
-            border: none;
-            cursor: pointer;
-            width: 240px;
-            text-align: center;
-            text-decoration: none;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            padding: 12px 30px; font-weight: bold; text-transform: uppercase; color: #ffffff;
+            border-radius: 8px; border: none; cursor: pointer; width: 240px;
+            text-align: center; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
         }
         .btn-jugar { background-color: #2ecc71; }
-        .btn-promo { background-color: #3498db; }
-        .btn-volver { background-color: #e74c3c; }
+        .btn-volver { background-color: #e74c3c; margin-top: 20px; }
 
-        .contenedor-logos { display: flex; gap: 40px; }
-        .link-juego img { width: 150px; transition: transform 0.3s; }
+        .contenedor-logos { display: flex; gap: 40px; margin-top: 10px; }
+        .link-juego img { width: 140px; transition: transform 0.3s; }
         .link-juego img:hover { transform: scale(1.1); }
 
         /* --- FOOTER --- */
         .footer { position: absolute; bottom: 25px; text-align: center; }
-        .whatsapp-link { color: #25D366; font-size: 35px; }
-        .footer p { color: white; font-size: 0.7rem; text-transform: uppercase; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); }
+        .whatsapp-link { color: #25D366; font-size: 35px; text-decoration: none; }
+        .footer p { color: white; font-size: 0.7rem; text-transform: uppercase; 
+                    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); margin-top: 5px; }
     </style>
 </head>
 <body>
 
+    <div id="contenedor-logo">
+        <img src="logo.png" alt="Logo" class="logo-principal" id="logo-dinamico">
+    </div>
+
     <div id="menu-principal">
-        <img src="logo.png" alt="Logo" class="logo-animado">
         <button class="btn btn-jugar" id="btn-jugar">A JUGAR</button>
-        <button class="btn btn-promo" id="btn-promo">PROMOCIONES</button>
     </div>
 
     <div id="pantalla-juego">
+        <h2 style="color:white; margin-top:10px;">LISTADO DE JUEGOS</h2>
         <div class="contenedor-logos">
             <a href="https://klalo78.github.io/MEMOMUNDIAL/" target="_blank" class="link-juego">
                 <img src="memomundial.png" alt="Memo Mundial">
             </a>
-            <a href="https://github.com/klalo78/Trivia-Mundial" target="_blank" class="link-juego">
+            <a href="https://klalo78.github.io/Trivia-Mundial/" target="_blank" class="link-juego">
                 <img src="triviamundial.png" alt="Trivia Mundial">
             </a>
         </div>
@@ -109,17 +97,36 @@
     <script>
         const menu = document.getElementById("menu-principal");
         const juego = document.getElementById("pantalla-juego");
+        const logo = document.getElementById("logo-dinamico");
 
         document.getElementById("btn-jugar").addEventListener("click", () => {
-            menu.style.display = "none";
-            juego.style.display = "flex";
-            document.body.style.backgroundImage = "url('backgames.jpg')";
+            const fecha = new Date();
+            const dia = fecha.getDate();
+            const mes = fecha.getMonth() + 1;
+            const anio = 26;
+            
+            // Fórmula: (día * 17) + (mes * 31) + anio
+            const codigoDelDia = ((dia * 17) + (mes * 31) + anio).toString();
+            
+            const ingreso = prompt("Ingrese el código de acceso:");
+
+            if (ingreso === codigoDelDia) {
+                if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();
+                menu.style.display = "none";
+                juego.style.display = "flex";
+                document.body.style.backgroundImage = "url('backgames.jpg')";
+                logo.className = "logo-chico";
+            } else {
+                alert("Código incorrecto.");
+            }
         });
 
         function volver() {
             juego.style.display = "none";
             menu.style.display = "flex";
             document.body.style.backgroundImage = "url('back.jpg')";
+            logo.className = "logo-principal";
+            if (document.exitFullscreen) document.exitFullscreen();
         }
     </script>
 </body>
