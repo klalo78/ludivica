@@ -23,36 +23,35 @@
             transition: background-image 0.5s ease;
         }
 
-        /* --- LOGO: Sombra negra + Resplandor intenso --- */
+        /* --- LOGO: Más abajo --- */
         .logo-base { 
             transition: all 0.5s ease; 
-            /* Sombra negra base para despegar del fondo + resplandor blanco */
-            filter: drop-shadow(0px 5px 5px rgba(0,0,0,0.8)) 
-                    drop-shadow(0 0 20px rgba(255, 255, 255, 1)) 
-                    drop-shadow(0 0 40px rgba(255, 255, 255, 1)); 
+            filter: drop-shadow(0px 5px 5px rgba(0,0,0,0.8)) drop-shadow(0 0 20px rgba(255, 255, 255, 1)); 
             animation: flotar 3s ease-in-out infinite; 
         }
-        .logo-grande { width: 220px; margin-top: 8vh; margin-bottom: 40px; }
+        .logo-grande { width: 220px; margin-top: 15vh; margin-bottom: 40px; }
         
         @keyframes flotar { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-12px); } }
 
         /* --- PANELES --- */
-        #menu-principal, #panel-codigo, #pantalla-juego { display: flex; flex-direction: column; gap: 15px; align-items: center; }
-        #panel-codigo, #pantalla-juego { display: none; margin-top: 40px; }
+        #menu-principal, #panel-codigo, #pantalla-juego { display: flex; flex-direction: column; gap: 20px; align-items: center; }
+        #panel-codigo, #pantalla-juego { display: none; margin-top: 20px; }
 
-        .input-codigo { padding: 12px; border-radius: 8px; border: none; width: 220px; text-align: center; font-size: 1.5rem; }
+        /* Estilo para que el panel no quede tapado por el teclado */
+        #panel-codigo { padding-bottom: 50px; }
+
+        .input-codigo { padding: 15px; border-radius: 8px; border: none; width: 240px; text-align: center; font-size: 1.5rem; }
         
-        .btn { padding: 10px 20px; font-size: 1.3rem; font-weight: bold; text-transform: uppercase; color: #ffffff; border-radius: 8px; border: none; cursor: pointer; width: 220px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); transition: transform 0.2s; }
+        .btn { padding: 12px 25px; font-size: 1.3rem; font-weight: bold; text-transform: uppercase; color: #ffffff; border-radius: 8px; border: none; cursor: pointer; width: 240px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); }
         .btn-jugar { background-color: #2ecc71; }
-        .btn-ingresar { background-color: #f39c12; }
+        .btn-ingresar { background-color: #f39c12; margin-top: 10px; }
         .btn-volver { background-color: #e74c3c; width: 150px; font-size: 1rem; padding: 10px; }
 
-        /* --- LOGOS JUEGOS (Más abajo) --- */
-        .contenedor-logos { display: flex; gap: 40px; justify-content: center; margin-top: 150px; } 
-        .link-juego img { width: 100px; transition: transform 0.3s; }
+        /* --- LOGOS JUEGOS: 30% más grandes --- */
+        .contenedor-logos { display: flex; gap: 40px; justify-content: center; margin-top: 130px; } 
+        .link-juego img { width: 145px; transition: transform 0.3s; }
         .link-juego img:hover { transform: scale(1.1); }
 
-        /* --- FOOTER --- */
         .footer-juego { position: absolute; bottom: 40px; display: flex; flex-direction: column; align-items: center; gap: 15px; }
         .whatsapp-link { color: #25D366; font-size: 45px; text-decoration: none; }
     </style>
@@ -90,7 +89,12 @@
         const pieJuegos = document.getElementById("pie-juegos");
         const logo = document.getElementById("logo-dinamico");
 
-        function mostrarPanel() { menu.style.display = "none"; panel.style.display = "flex"; }
+        function mostrarPanel() { 
+            menu.style.display = "none"; 
+            panel.style.display = "flex"; 
+            // Esto ayuda a que el navegador posicione el panel arriba cuando sale el teclado
+            setTimeout(() => { document.getElementById("input-ingreso").focus(); }, 300);
+        }
 
         function verificarCodigo() {
             const fecha = new Date();
