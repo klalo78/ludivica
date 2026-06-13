@@ -26,8 +26,7 @@
         /* --- LOGO --- */
         .logo-base { transition: all 0.5s ease; filter: drop-shadow(0 0 30px rgba(255, 255, 255, 1)); animation: flotar 3s ease-in-out infinite; }
         .logo-grande { width: 180px; margin-top: 10vh; margin-bottom: 30px; }
-        .logo-chico { width: 100px; margin-top: 20px; }
-
+        
         @keyframes flotar { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-12px); } }
 
         /* --- PANELES --- */
@@ -41,9 +40,9 @@
         .btn-ingresar { background-color: #f39c12; }
         .btn-volver { background-color: #e74c3c; width: 150px; }
 
-        /* --- LOGOS JUEGOS --- */
-        .contenedor-logos { display: flex; gap: 30px; justify-content: center; margin-top: 20px; }
-        .link-juego img { width: 140px; transition: transform 0.3s; }
+        /* --- LOGOS JUEGOS (Más chicos y más abajo) --- */
+        .contenedor-logos { display: flex; gap: 30px; justify-content: center; margin-top: 100px; }
+        .link-juego img { width: 110px; transition: transform 0.3s; }
         .link-juego img:hover { transform: scale(1.1); }
 
         /* --- FOOTER --- */
@@ -91,12 +90,13 @@
             const codigoCorrecto = ((fecha.getDate() * 17) + ((fecha.getMonth() + 1) * 31) + 26).toString();
             
             if (document.getElementById("input-ingreso").value === codigoCorrecto) {
-                if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();
+                // Ya no llamamos a requestFullscreen
                 panel.style.display = "none";
                 juego.style.display = "flex";
                 pieJuegos.style.display = "flex";
                 document.body.style.backgroundImage = "url('backgames.jpg')";
-                logo.classList.replace("logo-grande", "logo-chico");
+                // Ocultar el logo principal
+                logo.style.display = "none";
             } else { alert("Codigo incorrecto."); }
         }
 
@@ -105,8 +105,8 @@
             pieJuegos.style.display = "none";
             menu.style.display = "flex";
             document.body.style.backgroundImage = "url('back.jpg')";
-            logo.classList.replace("logo-chico", "logo-grande");
-            if (document.exitFullscreen) document.exitFullscreen();
+            // Volver a mostrar el logo
+            logo.style.display = "block";
         }
     </script>
 </body>
