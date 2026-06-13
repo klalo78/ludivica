@@ -23,54 +23,54 @@
             transition: background-image 0.5s ease;
         }
 
-        .logo-principal { width: 180px; margin-top: 10vh; margin-bottom: 30px; }
+        /* --- LOGO: Animación permanente --- */
+        .logo-base {
+            transition: all 0.5s ease;
+            filter: drop-shadow(0 0 30px rgba(255, 255, 255, 1));
+            animation: flotar 3s ease-in-out infinite;
+        }
+        .logo-grande { width: 180px; margin-top: 10vh; margin-bottom: 30px; }
         .logo-chico { width: 100px; margin-top: 20px; }
 
-        #menu-principal, #panel-codigo {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            align-items: center;
+        @keyframes flotar {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
         }
 
-        /* Panel de Código Integrado */
+        #menu-principal, #panel-codigo { display: flex; flex-direction: column; gap: 15px; align-items: center; }
+        
         #panel-codigo { display: none; margin-top: 20px; }
         .input-codigo {
-            padding: 12px;
-            border-radius: 8px;
-            border: none;
-            width: 240px;
-            text-align: center;
-            font-size: 1.2rem;
-            margin-bottom: 10px;
+            padding: 12px; border-radius: 8px; border: none; width: 240px;
+            text-align: center; font-size: 1.2rem; margin-bottom: 10px;
         }
 
         .btn {
             padding: 12px 30px; font-weight: bold; text-transform: uppercase; color: #ffffff;
             border-radius: 8px; border: none; cursor: pointer; width: 240px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); transition: transform 0.2s;
         }
         .btn-jugar { background-color: #2ecc71; }
         .btn-ingresar { background-color: #f39c12; }
-        
+        .btn:hover { transform: scale(1.05); }
+
         #pantalla-juego { display: none; flex-direction: column; align-items: center; gap: 20px; }
         
-        /* Footer y demás estilos iguales al anterior */
         .footer { position: absolute; bottom: 25px; text-align: center; }
         .whatsapp-link { color: #25D366; font-size: 35px; text-decoration: none; }
     </style>
 </head>
 <body>
 
-    <img src="logo.png" alt="Logo" class="logo-principal" id="logo-dinamico">
+    <img src="logo.png" alt="Logo" class="logo-base logo-grande" id="logo-dinamico">
 
     <div id="menu-principal">
         <button class="btn btn-jugar" onclick="mostrarPanel()">A JUGAR</button>
-        <button class="btn" style="background-color: #3498db;">PROMOCIONES</button>
+        <button class="btn" style="background-color: #3498db;" onclick="alert('Próximamente')">PROMOCIONES</button>
     </div>
 
     <div id="panel-codigo">
-        <input type="password" id="input-ingreso" class="input-codigo" placeholder="INGRESE CÓDIGO" maxlength="4">
+        <input type="password" id="input-ingreso" class="input-codigo" placeholder="INGRESE CODIGO" maxlength="4">
         <button class="btn btn-ingresar" onclick="verificarCodigo()">INGRESAR</button>
     </div>
 
@@ -108,7 +108,7 @@
                 panel.style.display = "none";
                 juego.style.display = "flex";
                 document.body.style.backgroundImage = "url('backgames.jpg')";
-                logo.className = "logo-chico";
+                logo.classList.replace("logo-grande", "logo-chico");
             } else {
                 alert("Código incorrecto.");
             }
@@ -118,7 +118,7 @@
             juego.style.display = "none";
             menu.style.display = "flex";
             document.body.style.backgroundImage = "url('back.jpg')";
-            logo.className = "logo-principal";
+            logo.classList.replace("logo-chico", "logo-grande");
             if (document.exitFullscreen) document.exitFullscreen();
         }
     </script>
