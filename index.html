@@ -23,31 +23,37 @@
             transition: background-image 0.5s ease;
         }
 
-        /* --- LOGO --- */
-        .logo-base { transition: all 0.5s ease; filter: drop-shadow(0 0 30px rgba(255, 255, 255, 1)); animation: flotar 3s ease-in-out infinite; }
-        .logo-grande { width: 220px; margin-top: 15vh; margin-bottom: 50px; } /* Más grande y más abajo */
+        /* --- LOGO: Triple capa de resplandor --- */
+        .logo-base { 
+            transition: all 0.5s ease; 
+            filter: drop-shadow(0 0 20px rgba(255, 255, 255, 1)) 
+                    drop-shadow(0 0 40px rgba(255, 255, 255, 1)) 
+                    drop-shadow(0 0 60px rgba(255, 255, 255, 0.8)); 
+            animation: flotar 3s ease-in-out infinite; 
+        }
+        .logo-grande { width: 220px; margin-top: 10vh; margin-bottom: 40px; }
         
         @keyframes flotar { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-12px); } }
 
         /* --- PANELES --- */
-        #menu-principal, #panel-codigo, #pantalla-juego { display: flex; flex-direction: column; gap: 20px; align-items: center; }
+        #menu-principal, #panel-codigo, #pantalla-juego { display: flex; flex-direction: column; gap: 15px; align-items: center; }
         #panel-codigo, #pantalla-juego { display: none; margin-top: 40px; }
 
-        .input-codigo { padding: 15px; border-radius: 10px; border: none; width: 280px; text-align: center; font-size: 1.5rem; }
+        .input-codigo { padding: 12px; border-radius: 8px; border: none; width: 220px; text-align: center; font-size: 1.5rem; }
         
-        /* Botones más grandes */
-        .btn { padding: 18px 40px; font-size: 1.3rem; font-weight: bold; text-transform: uppercase; color: #ffffff; border-radius: 10px; border: none; cursor: pointer; width: 280px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); transition: transform 0.2s; }
+        /* Botones más chicos en tamaño, manteniendo letra grande */
+        .btn { padding: 10px 20px; font-size: 1.3rem; font-weight: bold; text-transform: uppercase; color: #ffffff; border-radius: 8px; border: none; cursor: pointer; width: 220px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); transition: transform 0.2s; }
         .btn-jugar { background-color: #2ecc71; }
         .btn-ingresar { background-color: #f39c12; }
-        .btn-volver { background-color: #e74c3c; width: 150px; font-size: 1rem; }
+        .btn-volver { background-color: #e74c3c; width: 150px; font-size: 1rem; padding: 10px; }
 
-        /* --- LOGOS JUEGOS (Más abajo) --- */
-        .contenedor-logos { display: flex; gap: 40px; justify-content: center; margin-top: 180px; } 
+        /* --- LOGOS JUEGOS (Más arriba) --- */
+        .contenedor-logos { display: flex; gap: 40px; justify-content: center; margin-top: 50px; } 
         .link-juego img { width: 100px; transition: transform 0.3s; }
         .link-juego img:hover { transform: scale(1.1); }
 
-        /* --- FOOTER (Más abajo) --- */
-        .footer-juego { position: absolute; bottom: 40px; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+        /* --- FOOTER --- */
+        .footer-juego { position: absolute; bottom: 40px; display: flex; flex-direction: column; align-items: center; gap: 15px; }
         .whatsapp-link { color: #25D366; font-size: 45px; text-decoration: none; }
     </style>
 </head>
