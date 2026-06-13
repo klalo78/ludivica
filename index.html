@@ -23,40 +23,31 @@
             transition: background-image 0.5s ease;
         }
 
-        /* --- LOGO: Animación permanente --- */
-        .logo-base {
-            transition: all 0.5s ease;
-            filter: drop-shadow(0 0 30px rgba(255, 255, 255, 1));
-            animation: flotar 3s ease-in-out infinite;
-        }
+        /* --- LOGO --- */
+        .logo-base { transition: all 0.5s ease; filter: drop-shadow(0 0 30px rgba(255, 255, 255, 1)); animation: flotar 3s ease-in-out infinite; }
         .logo-grande { width: 180px; margin-top: 10vh; margin-bottom: 30px; }
         .logo-chico { width: 100px; margin-top: 20px; }
 
-        @keyframes flotar {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-12px); }
-        }
+        @keyframes flotar { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-12px); } }
 
-        #menu-principal, #panel-codigo { display: flex; flex-direction: column; gap: 15px; align-items: center; }
+        /* --- PANELES --- */
+        #menu-principal, #panel-codigo, #pantalla-juego { display: flex; flex-direction: column; gap: 15px; align-items: center; }
+        #panel-codigo, #pantalla-juego { display: none; margin-top: 20px; }
+
+        .input-codigo { padding: 12px; border-radius: 8px; border: none; width: 240px; text-align: center; font-size: 1.2rem; }
         
-        #panel-codigo { display: none; margin-top: 20px; }
-        .input-codigo {
-            padding: 12px; border-radius: 8px; border: none; width: 240px;
-            text-align: center; font-size: 1.2rem; margin-bottom: 10px;
-        }
-
-        .btn {
-            padding: 12px 30px; font-weight: bold; text-transform: uppercase; color: #ffffff;
-            border-radius: 8px; border: none; cursor: pointer; width: 240px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); transition: transform 0.2s;
-        }
+        .btn { padding: 12px 30px; font-weight: bold; text-transform: uppercase; color: #ffffff; border-radius: 8px; border: none; cursor: pointer; width: 240px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); transition: transform 0.2s; }
         .btn-jugar { background-color: #2ecc71; }
         .btn-ingresar { background-color: #f39c12; }
-        .btn:hover { transform: scale(1.05); }
+        .btn-volver { background-color: #e74c3c; width: 150px; }
 
-        #pantalla-juego { display: none; flex-direction: column; align-items: center; gap: 20px; }
-        
-        .footer { position: absolute; bottom: 25px; text-align: center; }
+        /* --- LOGOS JUEGOS --- */
+        .contenedor-logos { display: flex; gap: 30px; justify-content: center; margin-top: 20px; }
+        .link-juego img { width: 140px; transition: transform 0.3s; }
+        .link-juego img:hover { transform: scale(1.1); }
+
+        /* --- FOOTER --- */
+        .footer-juego { position: absolute; bottom: 25px; display: flex; flex-direction: column; align-items: center; gap: 15px; }
         .whatsapp-link { color: #25D366; font-size: 35px; text-decoration: none; }
     </style>
 </head>
@@ -66,7 +57,7 @@
 
     <div id="menu-principal">
         <button class="btn btn-jugar" onclick="mostrarPanel()">A JUGAR</button>
-        <button class="btn" style="background-color: #3498db;" onclick="alert('Próximamente')">PROMOCIONES</button>
+        <button class="btn" style="background-color: #3498db;" onclick="alert('Proximamente')">PROMOCIONES</button>
     </div>
 
     <div id="panel-codigo">
@@ -75,13 +66,14 @@
     </div>
 
     <div id="pantalla-juego">
-        <h2 style="color:white;">LISTADO DE JUEGOS</h2>
-        <a href="https://klalo78.github.io/MEMOMUNDIAL/" target="_blank"><img src="memomundial.png" width="140"></a>
-        <a href="https://klalo78.github.io/Trivia-Mundial/" target="_blank"><img src="triviamundial.png" width="140"></a>
-        <button class="btn" style="background-color: #e74c3c;" onclick="volver()">VOLVER</button>
+        <div class="contenedor-logos">
+            <a href="https://klalo78.github.io/MEMOMUNDIAL/" target="_blank" class="link-juego"><img src="memomundial.png"></a>
+            <a href="https://klalo78.github.io/Trivia-Mundial/" target="_blank" class="link-juego"><img src="triviamundial.png"></a>
+        </div>
     </div>
 
-    <div class="footer">
+    <div id="pie-juegos" class="footer-juego" style="display:none;">
+        <button class="btn btn-volver" onclick="volver()">VOLVER</button>
         <a href="https://wa.me/541149496902" target="_blank" class="whatsapp-link"><i class="fab fa-whatsapp"></i></a>
     </div>
 
@@ -89,33 +81,28 @@
         const menu = document.getElementById("menu-principal");
         const panel = document.getElementById("panel-codigo");
         const juego = document.getElementById("pantalla-juego");
+        const pieJuegos = document.getElementById("pie-juegos");
         const logo = document.getElementById("logo-dinamico");
 
-        function mostrarPanel() {
-            menu.style.display = "none";
-            panel.style.display = "flex";
-        }
+        function mostrarPanel() { menu.style.display = "none"; panel.style.display = "flex"; }
 
         function verificarCodigo() {
             const fecha = new Date();
-            const dia = fecha.getDate();
-            const mes = fecha.getMonth() + 1;
-            const anio = 26;
-            const codigoCorrecto = ((dia * 17) + (mes * 31) + anio).toString();
+            const codigoCorrecto = ((fecha.getDate() * 17) + ((fecha.getMonth() + 1) * 31) + 26).toString();
             
             if (document.getElementById("input-ingreso").value === codigoCorrecto) {
                 if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();
                 panel.style.display = "none";
                 juego.style.display = "flex";
+                pieJuegos.style.display = "flex";
                 document.body.style.backgroundImage = "url('backgames.jpg')";
                 logo.classList.replace("logo-grande", "logo-chico");
-            } else {
-                alert("Código incorrecto.");
-            }
+            } else { alert("Codigo incorrecto."); }
         }
 
         function volver() {
             juego.style.display = "none";
+            pieJuegos.style.display = "none";
             menu.style.display = "flex";
             document.body.style.backgroundImage = "url('back.jpg')";
             logo.classList.replace("logo-chico", "logo-grande");
