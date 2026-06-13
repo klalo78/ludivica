@@ -23,11 +23,11 @@
             transition: background-image 0.5s ease;
         }
 
-        /* --- LOGO PRINCIPAL --- */
+        /* --- LOGO --- */
         .logo-principal {
             width: 180px;
-            margin-top: 50px;
-            margin-bottom: 20px;
+            margin-top: 10vh; /* Bajado para que no esté pegado al techo */
+            margin-bottom: 30px;
             filter: drop-shadow(0 0 30px rgba(255, 255, 255, 1)) drop-shadow(0 0 10px rgba(255, 255, 255, 1));
             animation: flotar 3s ease-in-out infinite;
         }
@@ -43,23 +43,37 @@
             50% { transform: translateY(-12px); }
         }
 
-        /* --- MENÚ Y JUEGOS --- */
-        #menu-principal { display: flex; flex-direction: column; gap: 15px; align-items: center; }
-        #pantalla-juego { display: none; flex-direction: column; align-items: center; gap: 20px; text-align: center; }
+        /* --- MENÚ --- */
+        #menu-principal {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+        }
+
+        #pantalla-juego {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            text-align: center;
+        }
 
         .btn {
             padding: 12px 30px; font-weight: bold; text-transform: uppercase; color: #ffffff;
             border-radius: 8px; border: none; cursor: pointer; width: 240px;
             text-align: center; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s;
         }
         .btn-jugar { background-color: #2ecc71; }
+        .btn-promo { background-color: #3498db; }
         .btn-volver { background-color: #e74c3c; margin-top: 20px; }
+        .btn:hover { transform: scale(1.05); }
 
         .contenedor-logos { display: flex; gap: 40px; margin-top: 10px; }
         .link-juego img { width: 140px; transition: transform 0.3s; }
         .link-juego img:hover { transform: scale(1.1); }
 
-        /* --- FOOTER --- */
         .footer { position: absolute; bottom: 25px; text-align: center; }
         .whatsapp-link { color: #25D366; font-size: 35px; text-decoration: none; }
         .footer p { color: white; font-size: 0.7rem; text-transform: uppercase; 
@@ -74,6 +88,7 @@
 
     <div id="menu-principal">
         <button class="btn btn-jugar" id="btn-jugar">A JUGAR</button>
+        <button class="btn btn-promo" id="btn-promo" onclick="alert('Próximamente promociones')">PROMOCIONES</button>
     </div>
 
     <div id="pantalla-juego">
@@ -100,18 +115,18 @@
         const logo = document.getElementById("logo-dinamico");
 
         document.getElementById("btn-jugar").addEventListener("click", () => {
+            // Intento de pantalla completa
+            document.documentElement.requestFullscreen().catch(err => console.log("Fullscreen bloqueado"));
+            
             const fecha = new Date();
             const dia = fecha.getDate();
             const mes = fecha.getMonth() + 1;
             const anio = 26;
-            
-            // Fórmula: (día * 17) + (mes * 31) + anio
             const codigoDelDia = ((dia * 17) + (mes * 31) + anio).toString();
             
             const ingreso = prompt("Ingrese el código de acceso:");
 
             if (ingreso === codigoDelDia) {
-                if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();
                 menu.style.display = "none";
                 juego.style.display = "flex";
                 document.body.style.backgroundImage = "url('backgames.jpg')";
