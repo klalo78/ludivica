@@ -24,16 +24,23 @@
             transition: background-image 0.5s ease;
         }
 
-        /* --- MENÚ PRINCIPAL --- */
-        .menu-container {
-            display: flex;
+        /* --- CONTENEDORES --- */
+        #menu-principal {
+            display: flex; /* Visible por defecto */
             flex-direction: column;
             gap: 15px;
-            text-align: center;
             align-items: center;
-            margin-top: -50px; 
+            margin-top: -50px;
         }
 
+        #pantalla-juego {
+            display: none; /* OCULTO POR DEFECTO */
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+
+        /* --- LOGOS Y BOTONES --- */
         .logo-animado {
             width: 180px;
             margin-bottom: 25px;
@@ -49,56 +56,34 @@
         .btn {
             display: block;
             padding: 12px 30px;
-            font-size: 1.1rem;
             font-weight: bold;
             text-transform: uppercase;
             color: #ffffff;
             border-radius: 8px;
             border: none;
             cursor: pointer;
-            width: 100%;
-            max-width: 240px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-            transition: all 0.2s ease;
-            text-decoration: none;
+            width: 240px;
             text-align: center;
+            text-decoration: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
         }
         .btn-jugar { background-color: #2ecc71; }
         .btn-promo { background-color: #3498db; }
+        .btn-volver { background-color: #e74c3c; }
 
-        /* --- PANTALLA JUEGOS --- */
-        #pantalla-juego {
-            display: none;
-            text-align: center;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .contenedor-logos {
-            display: flex;
-            gap: 40px;
-        }
-
-        .link-juego img {
-            width: 150px;
-            transition: transform 0.3s;
-        }
-
+        .contenedor-logos { display: flex; gap: 40px; }
+        .link-juego img { width: 150px; transition: transform 0.3s; }
         .link-juego img:hover { transform: scale(1.1); }
 
         /* --- FOOTER --- */
         .footer { position: absolute; bottom: 25px; text-align: center; }
-        .whatsapp-link { color: #25D366; font-size: 35px; text-decoration: none; }
-        .footer p { color: white; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); }
+        .whatsapp-link { color: #25D366; font-size: 35px; }
+        .footer p { color: white; font-size: 0.7rem; text-transform: uppercase; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); }
     </style>
 </head>
 <body>
 
-    <div id="menu-principal" class="menu-container">
+    <div id="menu-principal">
         <img src="logo.png" alt="Logo" class="logo-animado">
         <button class="btn btn-jugar" id="btn-jugar">A JUGAR</button>
         <button class="btn btn-promo" id="btn-promo">PROMOCIONES</button>
@@ -113,27 +98,29 @@
                 <img src="triviamundial.png" alt="Trivia Mundial">
             </a>
         </div>
-        <br><br>
-        <button class="btn btn-promo" onclick="location.reload()">VOLVER</button>
+        <button class="btn btn-volver" onclick="volver()">VOLVER</button>
     </div>
 
     <div class="footer">
-        <a href="https://wa.me/541149496902" target="_blank" class="whatsapp-link">
-            <i class="fab fa-whatsapp"></i>
-        </a>
+        <a href="https://wa.me/541149496902" target="_blank" class="whatsapp-link"><i class="fab fa-whatsapp"></i></a>
         <p>multimedia design</p>
     </div>
 
     <script>
         const menu = document.getElementById("menu-principal");
-        const pantallaJuego = document.getElementById("pantalla-juego");
+        const juego = document.getElementById("pantalla-juego");
 
         document.getElementById("btn-jugar").addEventListener("click", () => {
             menu.style.display = "none";
-            pantallaJuego.style.display = "flex";
-            // Cambiar fondo al entrar a juegos
+            juego.style.display = "flex";
             document.body.style.backgroundImage = "url('backgames.jpg')";
         });
+
+        function volver() {
+            juego.style.display = "none";
+            menu.style.display = "flex";
+            document.body.style.backgroundImage = "url('back.jpg')";
+        }
     </script>
 </body>
 </html>
